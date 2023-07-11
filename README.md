@@ -17,6 +17,8 @@ I have tested on:
 
 > python main_attack_mix_defense_224img.py
 
+- note that the training data is put in directory `custom_data/1_img`
+
 - or changing the parameters to test attacks with diffrent settings.
 
 ### If you want to simulate the distributed learning by default settings (dataset: EMNIST, aggregation=FedAvg, distribution=Dir(0.5), #clients=100, #round=100): 
