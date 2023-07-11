@@ -30,5 +30,6 @@ I have tested on:
  
  # REFERENCES
  
- *https://github.com/rosinality/stylegan2-pytorch*
+ *(https://github.com/JonasGeiping/breaching)https://github.com/JonasGeiping/breaching*
+ **
  
