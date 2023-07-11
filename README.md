@@ -17,7 +17,7 @@ I have tested on:
 
 > python main_attack_mix_defense_224img.py
 
-- note that the training data is put in directory `custom_data/1_img`
+- note that the customized training data is put in directory `custom_data/1_img`
 
 - or changing the parameters to test attacks with diffrent settings.
 
@@ -26,10 +26,10 @@ I have tested on:
 1. run `gen_dataset_pre.py` to get training data with the above settings.
 2. run `easyfl_shell.py` to simulate the distributed learning with 100 clients.
 
-### or simulating the distributed learning using customed settings (with different aggregation method and defense method):
+### or simulating the distributed learning using customized settings (with different aggregation method and defense method):
 
-- changing the parameters in `gen_dataset_pre.py`.
-- changing the parameters in `easyfl_batch_run.py`.
+- changing the parameters in `gen_dataset_pre.py` (for generating diffrent data distrbution).
+- changing the parameters in `easyfl_batch_run.py` (details see the script).
 - running `easyfl_shell.py`.
  
  # REFERENCES
