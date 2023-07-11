@@ -1,0 +1,88 @@
+defaults:
+  - _default_optimization_attack
+  - _self_
+type: see-through-gradients
+label_strategy: yin
+
+objective:
+  type: dyna-layer-rand-cosine-similarity # euclidean
+  scale: 1 # 1e-4
+#  mask_value: 1e-1
+  start: 20 # 35 for vgg19
+  min_start: 10
+  broken_tail: 0
+  peroid_Add10: 1000 # 1000
+  min_weight_scale: 1
+  max_weight_scale: 1
+#  add10: 10
+
+restarts:
+  num_trials: 1
+  scoring: cosine-similarity # euclidean
+
+init: randn
+optim:
+  optimizer: adam
+  signed: "hard_quantify" # "hard" #False
+  mul_scale: 2
+  step_size: 0.1 # 0.2 for 5 # og: 0.1
+  boxed: True
+  max_iterations: 25_000
+  step_size_decay: step-lr # cosine-decay
+  langevin_noise: 0 #og: 0.01 # the original paper has 0.2
+  warmup: 0
+  pixel_decay: 0.0
+  distance_constrain:
+    stop_iter: 200
+    decay_rate: 1
+    decay_dis_rate: 0.9
+  #  grad_clip: None
+
+  callback: 1000
+
+regularization:
+  total_variation:
+    scale: 0.01
+    inner_exp: 1
+    outer_exp: 1
+    tv_start: 6000
+  norm:
+    scale: 1e-6 # 1e-6
+    pnorm: 2
+    norm_start: 8000
+  deep_inversion:
+    scale: 0.0001 #  reduce this value if user.provide_buffers=False
+    first_bn_multiplier: 2 #1
+    second_bn_multiplier: 3 # 5
+    deep_inv_start: 8000
+    deep_inv_stop: 30000
+    aux_batchnorm: False
+    aux_model: resnet34
+  group_regular:
+    scale: 0.05
+    totalseeds: 1
+    startIter: 50000
+    updateRegPeriod: 200
+    mode: "lazy" # "nlazy"
+    weighted: False
+
+save_dir: "./custom_data/def_test/"
+sat_ratio: 1.0
+
+augmentations:
+  #  focus:
+  #    size: 224
+  #    std: 0
+  #  discrete_shift:
+  #    lim: 8
+#  gaussianblur:
+#    radius: 101
+#    std: 1
+
+gaussianblur:
+  radius: 21
+  tiny_std: 0.2 # 0.7 for 4
+  large_std: 0.2
+  post_std: 1.0
+
+gaussianblur_start: 50000  # 3000

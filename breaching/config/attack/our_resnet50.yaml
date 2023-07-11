@@ -1,0 +1,78 @@
+defaults:
+  - _default_optimization_attack
+  - _self_
+type: see-through-gradients
+label_strategy: yin
+
+objective:
+  type: cosine-similarity # euclidean
+  scale: 1 # og: 1e-4
+
+restarts:
+  num_trials: 1
+  scoring: cosine-similarity #euclidean #'registered-group-regularization' # todo: implement this option
+
+init: randn
+
+optim:
+  optimizer: adam
+  signed: "hard_quantify" # "hard" #False
+  step_size: 0.1 # 0.2 for 5 # og: 0.1
+  boxed: True
+  max_iterations: 15_000
+  step_size_decay: step-lr # cosine-decay
+  langevin_noise: 0 #og: 0.01 # the original paper has 0.2 but the value does feel relatively large in my experiments
+  warmup: 0 # 50
+  pixel_decay: 0.0
+  distance_constrain:
+    stop_iter: 10000
+    decay_rate: 2e-1
+    decay_dis_rate: 0.5
+  #  grad_clip: None
+
+  callback: 1000 # Print objective value every callback many iterations
+
+regularization:
+  total_variation:
+    scale: 0.01 #0.02 # 0.025 for 4 # 0.2 # 1e-4
+    inner_exp: 1
+    outer_exp: 1
+    tv_start: 2000
+  norm:
+    scale: 0 #1e-4 # 1e-6
+    pnorm: 2
+    norm_start: 7000
+  deep_inversion: # This is batchnorm matching to buffers provided by the user [which can be either actual stats or global]
+    scale: 5e-4 # 0.00001 # 0.001 #og: 0.1 #  reduce this value if user.provide_buffers=False
+    first_bn_multiplier: 5
+    second_bn_multiplier: 5
+    deep_inv_start: 7000
+    deep_inv_stop: 15000
+  # group_regularization: # Not implemented. Unclear to me how this was implemented without accesss to the source code
+  #  scale: 0.01
+  group_regular:
+    scale: 0.05
+    totalseeds: 8
+    startIter: 5000
+    updateRegPeriod: 200
+    mode: "nlazy" # "lazy"
+    weighted: True
+
+augmentations:
+#  focus:
+#    size: 224
+#    std: 0
+#  discrete_shift:
+#    lim: 8
+#  gaussianblur:
+#    radius: 101
+#    tiny_std: 0.75
+#    large_std: 1.2
+
+gaussianblur:
+  radius: 101
+  tiny_std: 0.5 # 0.7 for 4
+  large_std: 0.5
+  post_std: 1.0
+
+gaussianblur_start: 15000  # 3000

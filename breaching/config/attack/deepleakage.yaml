@@ -1,0 +1,19 @@
+# Deep Leakage from Gradients
+defaults:
+  - _default_optimization_attack
+  - _self_
+type: deep-leakage
+attack_type: joint-optimization
+label_strategy: None
+
+token_recovery: from-embedding
+
+optim:
+  optimizer: L-BFGS
+  step_size: 1.0
+  boxed: True # False
+  max_iterations: 1000
+
+  callback: 100 # Print objective value every callback many iterations
+
+save_dir: "/home/mxj/PycharmProjects/breaching/custom_data/DGL_res34/"

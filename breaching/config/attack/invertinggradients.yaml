@@ -1,0 +1,44 @@
+defaults:
+  - _default_optimization_attack
+  - _self_
+type: invertinggradients
+
+objective:
+  type: cosine-similarity
+  scale: 1 # 1.0 # need to have a much smaller scale like 0.0001 for euclidean objectives
+
+restarts:
+  num_trials: 1
+  scoring: cosine-similarity
+
+optim:
+  optimizer: adam
+  signed: "hard"
+  step_size: 0.1 # 0.1
+  boxed: True
+  max_iterations: 1000 # 24_000
+  step_size_decay: step-lr # step-lr
+
+  langevin_noise: 1e-6 #og: 0.01 # the original paper has 0.2 but the value does feel relatively large in my experiments
+  warmup: 50
+  pixel_decay: 0
+
+  callback: 1000 # Print objective value every callback many iterations
+
+regularization:
+  total_variation:
+    scale: 0.2
+    # 0.2 # The old version did not take the mean dx + dy as the new version, so this corresponds to 0.1 in the old repo
+    inner_exp: 1
+    outer_exp: 1
+#  norm: # 自己加的
+#    scale: 1e-6 #1e-5 # 1e-6 太大多目标叠加、太小重影
+#    pnorm: 2
+#  deep_inversion: # This is batchnorm matching to buffers provided by the user [which can be either actual stats or global]
+#    scale: 0 # 0.00001
+  group_regular:
+    scale: 0
+
+save_dir: "/home/mxj/PycharmProjects/breaching/custom_data/InvGrad_res34/"
+
+

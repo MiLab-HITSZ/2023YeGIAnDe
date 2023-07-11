@@ -1,0 +1,88 @@
+defaults:
+  - _default_optimization_attack
+  - _self_
+type: see-through-gradients
+label_strategy: yin
+
+objective:
+  type: dyna-layer-rand-cosine-similarity  #dyna-layer-pick-cosine-similarity #dyna-layer-pick-euclidean # dyna-layer-pick-cosine-similarity
+  scale: 1 # 1e-4
+  #  mask_value: 1e-1
+  start: 150
+  min_start: 70
+  broken_tail: 0
+  peroid_Add10: 500
+  add10: 10
+  min_weight_scale: 1
+  max_weight_scale: 1
+
+restarts:
+  num_trials: 1
+  scoring: cosine-similarity # euclidean #'registered-group-regularization' # todo: implement this option
+
+init: randn
+optim:
+  optimizer: adam
+  signed: "hard" #"hard_quantify2" # "hard" #False
+  mul_scale: 2
+  step_size: 0.2 # 0.2 for 5 # og: 0.1
+  boxed: True
+  max_iterations: 20_000
+  step_size_decay: step-lr # cosine-decay
+  langevin_noise: 0 #og: 0.01 # the original paper has 0.2 but the value does feel relatively large in my experiments
+  warmup: 0
+  pixel_decay: 0.0
+  distance_constrain:
+    stop_iter: 2000
+    decay_rate: 1
+    decay_dis_rate: 0.7
+  #  grad_clip: None
+
+  callback: 1000 # Print objective value every callback many iterations
+
+regularization:
+  total_variation:
+    scale: 0.01
+    inner_exp: 1
+    outer_exp: 1
+    tv_start: 7000
+  norm:
+    scale: 1e-4 # 1e-6
+    pnorm: 2
+    norm_start: 10000
+  deep_inversion: # This is batchnorm matching to buffers provided by the user [which can be either actual stats or global]
+    scale: 0.0002 #  reduce this value if user.provide_buffers=False
+    first_bn_multiplier: 1 #1 # 昨晚是0.5
+    second_bn_multiplier: 1 # 1
+    deep_inv_start: 10000
+    deep_inv_stop: 30000
+  # group_regularization: # Not implemented. Unclear to me how this was implemented without accesss to the source code
+  #  scale: 0.01
+  group_regular:
+    scale: 0.05
+    totalseeds: 1
+    startIter: 50000
+    updateRegPeriod: 200
+    mode: "nlazy" # "lazy"
+    weighted: False
+
+save_dir: "/home/mxj/PycharmProjects/breaching/custom_data/recons_seethrough/"
+sat_ratio: 1.3
+
+augmentations:
+#  focus:
+#    size: 224
+#    std: 0
+#  discrete_shift:
+#    lim: 8
+#  gaussianblur:
+#    radius: 101
+#    std: 1
+
+gaussianblur:
+  radius: 21
+  tiny_std: 0.2 # 0.7 for 4
+  large_std: 0.2
+  post_std: 1.0
+
+gaussianblur_start: 50000  # 3000
