@@ -1,9 +1,9 @@
 # Copyright (C) Machine Intelligence Laboratory, Harbin Institute of Technology, Shenzhen
 # All rights reserved
-# @Time       : 2023/7/11 5:04 下午
-# @Author     : Zipeng Ye
-# @Affliction : Harbin Institute of Technology, Shenzhen
-# @File       : main_attack_mix_defense_cifar100.py
+# @Time        : 2023/7/11 5:04 下午
+# @Author      : Zipeng Ye
+# @Affiliation : Harbin Institute of Technology, Shenzhen
+# @File        : custom_dataset.py
 
 import os
 os.environ['CUDA_VISIBLE_DEVICES'] = '0'
