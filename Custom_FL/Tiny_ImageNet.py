@@ -1,9 +1,9 @@
 # Copyright (C) Machine Intelligence Laboratory, Harbin Institute of Technology, Shenzhen
 # All rights reserved
-# @Time       : 2023/7/11 5:04 下午
-# @Author     : Zipeng Ye
-# @Affliction : Harbin Institute of Technology, Shenzhen
-# @File       : Tiny_ImageNet.py
+# @Time        : 2023/7/11 5:04 下午
+# @Author      : Zipeng Ye
+# @Affiliation : Harbin Institute of Technology, Shenzhen
+# @File        : custom_dataset.py
 
 import os
 from PIL import ImageFile
