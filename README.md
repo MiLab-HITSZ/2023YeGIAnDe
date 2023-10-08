@@ -1,6 +1,6 @@
-# Gradient Inversion Attacks: A Comprehensive Analysis and Efficient Defense Approach
+# Gradient Inversion Attacks: Impact Factors Analyses and Privacy Enhancement
 
-Implementation of paper *"Z. Ye, W, Luo and Q. Zhou, et. al., Gradient Inversion Attacks: A Comprehensive Analysis and Efficient Defense Approach."*
+Implementation of paper *"Z. Ye, W, Luo and Q. Zhou, et. al., Gradient Inversion Attacks: Impact Factors Analyses and Privacy Enhancement."*
 
 
 # Requirements
