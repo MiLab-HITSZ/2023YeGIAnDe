@@ -368,7 +368,7 @@ def _construct_vision_model(cfg_model, cfg_data, pretrained=True, **kwargs):
             model = VGG(
                 cfg_model,
                 in_channels=channels,
-                num_classes=100,
+                num_classes=classes,
                 norm="None",  #None
                 nonlin="ReLU",
                 head="CIFAR",
