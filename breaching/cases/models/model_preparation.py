@@ -204,8 +204,9 @@ def _construct_vision_model(cfg_model, cfg_data, pretrained=True, **kwargs):
                 #     fc.bias.data = model.fc.bias[:classes]
                 model.fc = fc
             elif "vgg" in cfg_model.lower():
-                if pretrained:
-                    model.classifier[-1].reset_parameters()
+                model.classifier[-1] = torch.nn.Linear(model.classifier[-1].in_features, classes)
+                # if pretrained:
+                #     model.classifier[-1].reset_parameters()
                 for i in range(len(model.classifier)):
                     if isinstance(model.classifier[i], torch.nn.Dropout):
                         model.classifier[i] = torch.nn.Dropout(0.0, inplace=False)
